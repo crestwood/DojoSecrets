@@ -1,0 +1,46 @@
+@model ViewModel
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <a href="/logout"  >Logout</a>
+        </div>
+    </nav>
+<h1>Popular Secrets</h1>
+<a href="Secrets">Back</a><br>
+
+
+            <table> 
+                @foreach (var secret in ViewBag.allSecrets) { 
+                    <tr> 
+                        <td>@secret.Content - (@secret.Created_At) @secret.Likers.Count likes 
+                    
+                    @if(ViewBag.CurrentUser == secret.Creator)
+                    {
+                        <a href="DELETE2/@secret.Id" > Delete</a>
+                    }
+                    else
+                    {
+                        int Count =0;
+                        @foreach(var liker in @secret.Likers)
+                        {
+                            @if(@liker.Liker == @ViewBag.CurrentUser)
+                            {
+                                Count =1;
+                            }
+                        }
+                            @if(Count == 1)
+                            {
+                                <b>You Liked this!</b>
+                            }
+                            else
+                            {
+                                <a href="Like2/@secret.Id">Like</a>
+                            }
+
+                        }
+                          </td> 
+                    </tr>
+                    }
+                      
+                <!-- end main foreach -->
+                
+            </table>
